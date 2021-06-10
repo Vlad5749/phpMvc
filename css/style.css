@@ -1,0 +1,105 @@
+.productPanel {
+    border: dotted 1px gray;
+    margin:20px;
+    padding: 20px;
+}
+
+.sku {
+    color: grey;
+}
+
+.price {
+    color: green;
+    font-size: 16px;
+}
+
+.customerPanel {
+    border: dotted 1px gray;
+    margin:20px;
+    padding: 20px;
+}
+
+.customerName {
+    color: blue;
+    font-size: 16px;
+}
+
+.city {
+    color: green;
+}
+
+.phone {
+    color: green;
+}
+
+.email {
+    color: green;
+}
+
+.editSku, .editProductName, .editPrice, .editQty, .editDescription {
+    font-size: 16;
+}
+
+.inputDescription {
+    width: 202px;
+}
+
+.buttonForm {
+    display: inline-block;
+}
+
+.yesButton, .noButton {
+    width: 80px;
+}
+
+.deletePanel {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.delete {
+    font-size: 16px;
+}
+
+.buttonsPanel {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.message {
+    font-size: 16;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightskyblue;
+    padding: 20px;
+    width:fit-content;
+}
+
+.messagePanel {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.vSku, .vProductName, .vPrice, .vQty, .vDescription {
+    color:black;
+    font-size: 16;
+}
+
+.viewSku, .viewProductName, .viewPrice, .viewQty, .viewDescription {
+    color:gray;
+}
+
+.enterButton {
+    width:100%;
+}
+
+.enterPanel {
+    width:fit-content;
+}
+
+.registrationError {
+    color:red;
+}
