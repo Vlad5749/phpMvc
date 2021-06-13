@@ -2,6 +2,7 @@
 namespace Models;
 
 use Core\Model;
+use Core\DB;
 
 /**
  * Class Product
@@ -34,7 +35,7 @@ class Product extends Model
         $this->sql .= " where $key between ? and ?";
         array_push($this->params, $from);
         array_push($this->params, $to);
-            
+
         return $this;
     }
    
@@ -66,7 +67,7 @@ class Product extends Model
     public function getItem($id)
     {
         $sql = "select * from $this->table_name where $this->id_column = ?;";
-        $db = new \Core\DB();
+        $db = new DB();
         $product = $db->query($sql, array($id))[0];
         if (isset($product['description'])) {
             $product['description'] = htmlspecialchars_decode($product['description']);

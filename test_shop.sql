@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Чрв 10 2021 р., 14:17
+-- Час створення: Чрв 13 2021 р., 13:46
 -- Версія сервера: 8.0.19
 -- Версія PHP: 7.1.33
 
@@ -43,7 +43,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `last_name`, `first_name`, `telephone`, `email`, `city`, `password`, `admin_role`) VALUES
-(1, 'Півкач', 'Михайло', '+380501111111', 'mykhailo.pivkach@transoftgroup.com', 'Мукачево', '61e43782619169203f509f4a0cd97ac3', 1),
+(1, 'Півкач', 'Михайло', '+380501111111', 'mykhailo.pivkach@transoftgroup.com', 'Мукачево', '58b4e38f66bcdb546380845d6af27187', 1),
 (2, 'Антоненко', 'Дар\'я', '0930978647', 'denis92@virginiaintel.com', 'Мукачево', 'b5461e32b37ed3e99f090f2b645fbf30', 0),
 (3, 'Дмитренко', 'Іван', '+380995557793', 'kramarenko.ulia@tahuisi.buzz', 'Ужгород', '9b48bed2e0eb03ee57adc8ed2fd54f3c', 0),
 (4, 'Федорович', 'Юлія', '0938759070', 'larisa02@8yyyyy.com', 'Львів', 'a2ac67a7926dd348212c6dc83ffa57cd', 0),
@@ -54,7 +54,8 @@ INSERT INTO `customer` (`customer_id`, `last_name`, `first_name`, `telephone`, `
 (25, 'Ларентій', 'Віктор', '+5435345345', 'larenti@gmail.com', 'Хуст', 'bf510f88f04dc080f172e0317cd2a252', 0),
 (27, 'Орленко', 'Василь', '645645645', 'vasil@gmail.com', 'Lviv', '58b4e38f66bcdb546380845d6af27187', 0),
 (28, 'Дмитренко', 'Ігорь', '3434353434', 'dmitrenko@gmail.com', 'Kyiv', '58b4e38f66bcdb546380845d6af27187', 0),
-(32, 'Василенко', 'Валентин', '+3474574565', 'vasilenko@gmail.com', 'Сумми', '58b4e38f66bcdb546380845d6af27187', 0);
+(32, 'Василенко', 'Валентин', '+3474574565', 'vasilenko@gmail.com', 'Сумми', '58b4e38f66bcdb546380845d6af27187', 0),
+(34, 'sdgdfgdf', 'dfgdfgdf', 'dfgdfgdfg', 'aaabbb@mail.com', 'fsdfsdfs', '58b4e38f66bcdb546380845d6af27187', 0);
 
 -- --------------------------------------------------------
 
@@ -90,9 +91,6 @@ CREATE TABLE `orders` (
   `nameOrd` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telephone` bigint NOT NULL,
-  `sku` varchar(30) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` decimal(12,2) NOT NULL,
   `date_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -100,8 +98,9 @@ CREATE TABLE `orders` (
 -- Дамп даних таблиці `orders`
 --
 
-INSERT INTO `orders` (`id`, `nameOrd`, `email`, `telephone`, `sku`, `name`, `price`, `date_at`) VALUES
-(1, 'Михайло', 'mykhailo.pivkach@transoftgroup.com', 313137862, 'фывфывыф', '<h1>выфвфыв</h1>', '0.00', '2019-11-21 10:33:46');
+INSERT INTO `orders` (`id`, `nameOrd`, `email`, `telephone`, `date_at`) VALUES
+(1, 'Михайло', 'mykhailo.pivkach@transoftgroup.com', 313137862, '2019-11-21 10:33:46'),
+(3, 'aaabbb', 'aaabbb@gmail.com', 32143243, '2021-01-01 12:23:34');
 
 -- --------------------------------------------------------
 
@@ -129,7 +128,7 @@ INSERT INTO `products` (`id`, `sku`, `name`, `price`, `qty`, `description`) VALU
 (7, 't00006', 'Телефон 6', '7400.00', '4.000', 'sdfsdf sdfsdf sdfsdf'),
 (52, 't0007', 'Телефон 7', '54007.00', '10.000', 'dsdfsdf'),
 (53, 't0008', 'Телефон 8', '21003.00', '5.000', 'вапвапвапва'),
-(63, 't0013', 'Телефон 10', '2500.00', '19.000', 'sdfsdfsdf');
+(63, 't0013', 'Телефон 10', '2600.00', '19.000', 'sdfsdfsdf');
 
 -- --------------------------------------------------------
 
@@ -151,7 +150,8 @@ INSERT INTO `sales_order` (`order_id`, `customer_id`, `datetime`) VALUES
 (1, 1, '2019-10-24 15:29:59'),
 (2, 1, '2019-10-24 15:31:17'),
 (3, 1, '2019-10-24 15:44:08'),
-(4, 1, '2019-10-24 15:44:10');
+(4, 1, '2019-10-24 15:44:10'),
+(9, 32, '2021-04-21 15:20:59');
 
 -- --------------------------------------------------------
 
@@ -172,7 +172,9 @@ CREATE TABLE `sales_orderitem` (
 
 INSERT INTO `sales_orderitem` (`orderitem_id`, `order_id`, `product_id`, `qty`) VALUES
 (3, 2, 3, '1.000'),
-(4, 2, 4, '2.000');
+(4, 2, 4, '2.000'),
+(5, 9, 63, '2.000'),
+(6, 9, 7, '1.000');
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,9 @@ CREATE TABLE `shopping` (
 --
 
 INSERT INTO `shopping` (`orderitem_id`, `customer_id`, `product_id`, `qty`, `datetime`, `result`) VALUES
-(3, 1, 4, 1, '2019-11-21 10:53:59', 1);
+(3, 1, 4, 1, '2019-11-21 10:53:59', 1),
+(4, 32, 7, 1, '2021-01-01 12:23:34', 1),
+(5, 32, 63, 2, '2021-01-01 12:23:34', 1);
 
 -- --------------------------------------------------------
 
@@ -281,7 +285,7 @@ ALTER TABLE `test`
 -- AUTO_INCREMENT для таблиці `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблиці `menu`
@@ -293,31 +297,31 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблиці `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT для таблиці `sales_order`
 --
 ALTER TABLE `sales_order`
-  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблиці `sales_orderitem`
 --
 ALTER TABLE `sales_orderitem`
-  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблиці `shopping`
 --
 ALTER TABLE `shopping`
-  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблиці `test`

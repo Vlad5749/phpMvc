@@ -7,8 +7,6 @@
         <p class="viewQty"> Кількість: <span class="vQty"><?php echo $product['qty']?></span></p>
         <p><?php if(!$product['qty'] > 0) { echo 'Нема в наявності'; } ?></p>
         <p class="viewDescription"> Описання: <span class="vDescription"><?php echo $product['description']?></span></p>
-        <p>
-            <?= \Core\Url::getLink('/product/edit', 'Редагувати', array('id'=>$product['id'])); ?><br>
-            <?= \Core\Url::getLink('/product/delete', 'Видалити', array('id'=>$_GET['id'])); ?>
-        </p>
+        <p><?php if (\Core\Helper::isAdmin()) { echo \Core\Url::getLink('/product/edit', 'Редагувати', array('id'=>$product['id']));} ?></p>
+        <p><?php if (\Core\Helper::isAdmin()) { echo \Core\Url::getLink('/product/delete', 'Видалити', array('id'=>$_GET['id']));} ?></p>
     </div>

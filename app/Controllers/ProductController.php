@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\View;
+use Core\Helper;
 
 /**
  * Class ProductController
@@ -21,12 +22,12 @@ class ProductController extends Controller
     {
         $this->set('title', "Товари");
         $filterParam = $this->getFilterParams();
-        $products = $this->getModel('Product')
-            ->initCollection()
-            ->filter($filterParam)
-            ->sort($this->getSortParams())
-            ->getCollection()
-            ->select();
+            $products = $this->getModel('Product')
+                ->initCollection()
+                ->filter($filterParam)
+                ->sort($this->getSortParams())
+                ->getCollection()
+                ->select();
         $this->set('products', $products);
         
         $max = $this->getModel('Product')->getMax('price');
@@ -89,8 +90,7 @@ class ProductController extends Controller
         }
         return $params;
     }
-
-
+    
     /**
      *
      */
@@ -101,17 +101,21 @@ class ProductController extends Controller
         $this->set('product', $product->getItem($this->getId()));
         $this->renderLayout();
     }
-
+    
     /**
      *
      */
     public function editAction()
     {
+        if (!Helper::isAdmin()) {
+            $this->redirect("/product/list");
+            return;
+        }
         $model = $this->getModel('Product');
         $this->set('saved', 0);
         $this->set("title", "Редагування товару");
-        $confirm = filter_input(INPUT_POST, "confirm");
-        if ($confirm === "Підтвердити редагування") {
+        
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST')) {
             $values = $model->getPostValues();
             $this->set('saved', 1);
             $model->saveItem($this->getId(), $values);
@@ -124,6 +128,10 @@ class ProductController extends Controller
 
     public function deleteAction() 
     {
+        if (!Helper::isAdmin()) {
+            $this->redirect("/product/list");
+            return;
+        }
         $model = $this->getModel('Product');
         $this->set("title", "Видалення товару");
         $confirm = filter_input(INPUT_POST, 'confirm');
@@ -141,9 +149,13 @@ class ProductController extends Controller
      */
     public function addAction()
     {
+        if (!Helper::isAdmin()) {
+            $this->redirect("/product/list");
+            return;
+        }
         $model = $this->getModel('Product');
         $this->set("title","Додавання товару");
-        if ($values = $model->getPostValues()) {
+        if (($values = $model->getPostValues())) {
             $model->addItem($values);
             $products = $this->getModel('Product')
                 ->initCollection()

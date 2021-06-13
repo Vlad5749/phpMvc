@@ -15,6 +15,15 @@ class Helper
         }
     }
     
+    public static function isAdmin() 
+    {
+        if (self::getCustomer()['admin_role'] === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public static function getModel($name)
     {
         $name = '\\Models\\' . ucfirst($name);

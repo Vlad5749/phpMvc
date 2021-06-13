@@ -25,9 +25,11 @@
 <input type="submit" value="Застосувати">
 </form>
 
+<?php if (\Core\Helper::isAdmin()) : ?>
 <div class="productPanel"><p>
         <?= \Core\Url::getLink('/product/add', 'Додати товар'); ?>
 </p></div>
+<?php endif; ?>
 
 <?php
 $from = $this->get('from');
@@ -42,10 +44,8 @@ foreach($products as $product)  :
         <p> Ціна: <span class="price"><?php echo $product['price']?></span> грн</p>
         <p> Кількість: <?php echo $product['qty']?></p>
         <p><?php if(!$product['qty'] > 0) { echo 'Нема в наявності'; } ?></p>
-        <p>
-            <?= \Core\Url::getLink('/product/edit', 'Редагувати', array('id'=>$product['id'])); ?><br>
-            <?= \Core\Url::getLink('/product/view', 'Переглянути', array('id'=>$product['id'])); ?>
-        </p>
+        <p><?php if (\Core\Helper::isAdmin()) { echo \Core\Url::getLink('/product/edit', 'Редагувати', array('id'=>$product['id']));} ?></p>
+        <p><?= \Core\Url::getLink('/product/view', 'Переглянути', array('id'=>$product['id'])); ?></p>
     </div>
     
 <?php endforeach; ?>

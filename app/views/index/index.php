@@ -4,14 +4,4 @@
 if (isset($_SESSION['id'])) {
     $customer = $this->get('customer');
 }
-
-
-
-/*
-var_dump($_COOKIE);
-var_dump(session_id());
-var_dump(session_name());
-var_dump($_SESSION);
- */
-
 ?>
