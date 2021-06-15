@@ -115,7 +115,7 @@ class Model implements DbModelInterface
         
         $sql = "update $this->table_name "
              . "set $param "
-             . "where id = ?";
+             . "where $this->id_column = ?";
         array_push($paramArr, $id);
         
         $db->query($sql, $paramArr);
@@ -125,7 +125,7 @@ class Model implements DbModelInterface
     {
         $db = new DB();
         $sql = "delete from $this->table_name "
-             . "where id = ?";
+             . "where $this->id_column = ?";
         $db->query($sql, array($id));
     }
 

@@ -103,6 +103,6 @@
     width:fit-content;
 }
 
-.registrationError {
+.registrationError, .changePassError {
     color:red;
 }

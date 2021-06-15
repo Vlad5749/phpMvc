@@ -229,7 +229,7 @@ class ProductController extends Controller
         */
         return filter_input(INPUT_GET, 'id');
     }
-    
 
+    
     
 }

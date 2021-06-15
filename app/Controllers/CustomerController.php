@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\View;
+use Core\Helper;
 
 class CustomerController extends Controller
 {  
@@ -139,5 +140,54 @@ class CustomerController extends Controller
     public function getId()
     {
         return filter_input(INPUT_GET, 'id');
+    }
+    
+    public function changePassAction() 
+    {
+        $this->set('title', "Зміна пароля");
+        $this->set("error", false);
+        if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST'){
+            
+            $email = Helper::getCustomer()['email'];
+            $password = md5(filter_input(INPUT_POST, 'password'));
+            $params =array (
+                'email' => $email,
+                'password' => $password
+            );
+            $customer = $this->getModel('customer')
+                ->initCollection()
+                ->filter($params)
+                ->getCollection()
+                ->selectFirst();
+            
+            if(!empty($customer)) {
+                $newPassword = filter_input(INPUT_POST, 'new_password');
+                $confirmNewPassword = filter_input(INPUT_POST, 'confirm_new_password');
+                
+                if (!($newPassword === $confirmNewPassword)) {
+                    $this->set("error", "Не співпадають паролі");
+                } elseif(!preg_match("/^(?=.*\d)(?=.*[A-Za-z])([a-zA-Z0-9]{8,16})$/", $newPassword)){
+                    $this->set("error", "Некоректний пароль");
+                } else {
+                    $model = $this->getModel('Customer')
+                        ->saveItem(Helper::getCustomer()['customer_id'], array('password' => md5($newPassword)));
+                    $this->redirect("/customer/message?text=Ви успішно змінили пароль");
+                }
+            } else {
+                $this->invalid_password = 1;
+                $this->set("error", "Невірний пароль");
+            }
+        }
+        $this->renderLayout();
+    }
+    
+    public function messageAction() 
+    {
+        $this->set("title", "Повідомлення");
+        if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST'){
+            $id = Helper::getCustomer()['customer_id'];
+            $this->redirect("/customer/user?id=$id");
+        }
+        $this->renderLayout();
     }
 }
