@@ -190,4 +190,32 @@ class CustomerController extends Controller
         }
         $this->renderLayout();
     }
+    
+    public function editAction() 
+    {
+        $model = $this->getModel('Customer');
+        $this->set("title", "Редагування профілю");
+        $this->set("error", false);
+        
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST')) {
+            $values = $model->getPostValues();
+            $check = $this->validationEdit($values);
+            if ($check) {
+                $model->saveItem(Helper::getCustomer()['customer_id'], $values);
+                $this->redirect("/customer/message?text=Редагування пройшло успішно");
+            } else {
+                $this->set("error", "Некорекнті дані");
+            }
+        }
+        $this->renderLayout();
+    }
+    
+    public function validationEdit($values) 
+    {
+        if (count($values) != 4) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -12,6 +12,7 @@
             <word>hjk</word>
             <word>mjh</word>
             <word>пароль</word>
+            <word>телефон</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
