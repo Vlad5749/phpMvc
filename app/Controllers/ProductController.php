@@ -230,6 +230,43 @@ class ProductController extends Controller
         return filter_input(INPUT_GET, 'id');
     }
 
-    
-    
+    public function unloadAction()
+    {
+        $this->set('title', "Експорт");
+        if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
+            $confirm = filter_input(INPUT_POST, 'confirm');
+            if ($confirm === "Так") {
+                $products = $this->getModel('Product')
+                ->initCollection()
+                ->getCollection()->select();
+
+                $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><products/>');
+
+                foreach ($products as $product) {
+                    $xmlProduct = $xml->addChild('product');
+                    $xmlProduct->addChild('id',$product['id']);
+                    $xmlProduct->addChild('sku',$product['sku']);
+                    $xmlProduct->addChild('name',$product['name']);
+                    $xmlProduct->addChild('price',$product['price']);
+                    $xmlProduct->addChild('qty',$product['qty']);
+                    $xmlProduct->addChild('description',$product['description']);
+                }
+                //$xml->asXML('public/products.xml');
+
+                $dom = new \DOMDocument("1.0");
+                $dom->preserveWhiteSpace = false;
+                $dom->formatOutput = true;
+                $dom->loadXML($xml->asXML());
+                //$dom->saveXML();
+
+                $file = fopen('public/products.xml','w');
+                fwrite($file, $dom->saveXML());
+                fclose($file);
+                $this->redirect("/product/message?text=Товари успішно експортовані в Xml-файл");
+            } elseif ($confirm === "Ні") {
+                $this->redirect("/product/list");
+            }
+        }
+        $this->renderLayout();
+    }
 }

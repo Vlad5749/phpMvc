@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Чрв 13 2021 р., 13:46
+-- Час створення: Чрв 20 2021 р., 13:55
 -- Версія сервера: 8.0.19
 -- Версія PHP: 7.1.33
 
@@ -51,7 +51,7 @@ INSERT INTO `customer` (`customer_id`, `last_name`, `first_name`, `telephone`, `
 (15, 'Протопенко', 'Лідія', '+380554654', 'prot@gmail.com', 'Львів', 'bad6d650bc2379b98d5066a2d23493cd', 0),
 (16, 'Лагунцов', 'Ігорь', '+3808434343', 'lag@gmal.com', 'Київ', 'a2ac67a7926dd348212c6dc83ffa57cd', 0),
 (23, 'Метільска', 'Ольга', '+3539534343', 'metilska@gmail.com', 'Чоп', '58b4e38f66bcdb546380845d6af27187', 0),
-(25, 'Ларентій', 'Віктор', '+5435345345', 'larenti@gmail.com', 'Хуст', 'bf510f88f04dc080f172e0317cd2a252', 0),
+(25, 'Ларентій', 'Віктор', '+5435345345', 'larenti@gmail.com', 'Хуст', '58b4e38f66bcdb546380845d6af27187', 0),
 (27, 'Орленко', 'Василь', '645645645', 'vasil@gmail.com', 'Lviv', '58b4e38f66bcdb546380845d6af27187', 0),
 (28, 'Дмитренко', 'Ігорь', '3434353434', 'dmitrenko@gmail.com', 'Kyiv', '58b4e38f66bcdb546380845d6af27187', 0),
 (32, 'Василенко', 'Валентин', '+3474574565', 'vasilenko@gmail.com', 'Сумми', '58b4e38f66bcdb546380845d6af27187', 0),
@@ -78,7 +78,8 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`id`, `name`, `path`, `active`, `sort_order`) VALUES
 (1, 'Товари', '/product/list', 1, 1),
 (2, 'Клієнти', '/customer/list', 1, 2),
-(3, 'Тест', '/test/test', 1, 3);
+(3, 'Тест', '/test/test', 1, 3),
+(4, 'Експорт в Xml', '/product/unload', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -126,9 +127,9 @@ INSERT INTO `products` (`id`, `sku`, `name`, `price`, `qty`, `description`) VALU
 (4, 't00004', 'Телефон 4', '5886.00', '5.000', ' Телефон 4 '),
 (6, 't00005', 'Телефон 5', '5881.00', '6.000', ''),
 (7, 't00006', 'Телефон 6', '7400.00', '4.000', 'sdfsdf sdfsdf sdfsdf'),
-(52, 't0007', 'Телефон 7', '54007.00', '10.000', 'dsdfsdf'),
+(52, 't0007', 'Телефон 7', '54007.00', '25.000', 'dsdfsdf'),
 (53, 't0008', 'Телефон 8', '21003.00', '5.000', 'вапвапвапва'),
-(63, 't0013', 'Телефон 10', '2600.00', '19.000', 'sdfsdfsdf');
+(63, 't0013', 'Телефон 10', '2600.00', '20.000', 'sdfsdfsdf');
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT для таблиці `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблиці `orders`
@@ -303,7 +304,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT для таблиці `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT для таблиці `sales_order`

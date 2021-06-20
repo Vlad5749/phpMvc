@@ -5,7 +5,10 @@
         foreach($this->get('menuCollection') as $item)  :
     ?>
         <li>
-            <?= \Core\Url::getLink($item['path'], $item['name']); ?>
+            <?php if ($item['name'] !== 'Експорт в Xml') {
+                echo \Core\Url::getLink($item['path'], $item['name']);
+            } elseif (Core\Helper::isAdmin()) {
+                echo \Core\Url::getLink($item['path'], $item['name']);}?>
         </li>
     <?php endforeach; ?>
     </ul>
